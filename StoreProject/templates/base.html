@@ -84,7 +84,7 @@
                 <i class="fas fa-heart text-primary"></i>
                 <span class="badge">0</span>
             </a>
-            <a href="" class="btn border">
+            <a href="{% url 'cart' %}" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge">0</span>
             </a>
@@ -143,15 +143,21 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                <a href="{% url 'cart' %}" class="dropdown-item">Shopping Cart</a>
                                 <a href="checkout.html" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
-                        <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'product add' %}" class="">Add Product</a>
+                            <a href="" class="">Welcome {{ request.user }}</a>
+
+                        {% else %}
+                            <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
+                            <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -163,14 +169,14 @@
 {% endblock %}
 <!-- Navbar End -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
 
-    <!-- Contact Javascript File -->
-    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
-    <script src="{% static 'mail/contact.js' %}"></script>
+<!-- Contact Javascript File -->
+<script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+<script src="{% static 'mail/contact.js' %}"></script>
 
-    <!-- Template Javascript -->
-    <script src="{% static 'js/main.js' %}"></script>
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
 </body>

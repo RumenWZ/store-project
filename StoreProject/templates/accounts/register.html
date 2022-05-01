@@ -2,7 +2,7 @@
 {% block page_content %}
     <div class="container-fluid col-md-4 mb-5 form-control border-0 py-4">
         <h5 class="font-weight-bold text-dark mb-4">Register</h5>
-        <form action="">
+        <form action="{% url 'register' %}" method="POST">
             <div class="form-group">
                 {% csrf_token %}
                 {{ form }}

@@ -9,3 +9,9 @@ class HomeView(views.TemplateView):
 
 class ItemDetailsView(views.TemplateView):
     template_name = 'detail.html'
+
+class CartView(views.TemplateView):
+    template_name = 'cart.html'
+
+class CheckoutView(views.TemplateView):
+    template_name = 'checkout.html'

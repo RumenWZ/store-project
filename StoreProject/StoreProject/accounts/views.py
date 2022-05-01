@@ -9,6 +9,7 @@ from django.views import generic as views
 
 class LoginUserView(auth_views.LoginView):
     template_name = 'accounts/login.html'
+    success_url = reverse_lazy('index')
 
 
 class RegisterUserView(views.CreateView):
