@@ -25,7 +25,7 @@ class Product(models.Model):
         max_length=NAME_MAX_LEN,
         validators=(
             MinLengthValidator(NAME_MIN_LEN),
-            validate_only_letters_and_numbers,
+            # validate_only_letters_and_numbers,
         ),
         null=False,
         blank=False,

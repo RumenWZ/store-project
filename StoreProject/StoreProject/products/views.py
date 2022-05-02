@@ -10,7 +10,7 @@ from StoreProject.products.models import Product
 class AddProductView(views.CreateView):
     template_name = 'products/product_add.html'
     model = Product
-    fields = ('name', 'description', 'type')
+    fields = ('name', 'description', 'picture', 'type',)
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):

@@ -2,7 +2,7 @@
 {% block page_content %}
     <div class="container-fluid my-5 col-md-4 mb-5">
         <h5 class="font-weight-bold text-dark mb-4">Add a product</h5>
-        <form action="{% url 'product add' %}" method="POST">
+        <form action="{% url 'product add' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <div>

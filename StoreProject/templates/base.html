@@ -151,14 +151,15 @@
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'product add' %}" class="">Add Product</a>
-                            <a href="" class="">Welcome {{ request.user }}</a>
-                            <a href="{% url 'logout' %}" class="">Logout</a>
+                            <a href="{% url 'product add' %}" class="nav-item nav-link">Add Product</a>
+                            <a href="" class="nav-item nav-link">Welcome {{ request.user }}</a>
+                            <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
 
                         {% else %}
                             <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
                             <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
                         {% endif %}
+
                     </div>
                 </div>
             </nav>

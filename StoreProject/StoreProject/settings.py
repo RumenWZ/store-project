@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import cloudinary
+import cloudinary_storage
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'StoreProject.accounts',
     'StoreProject.products',
     'cloudinary',
-    # 'cloudinary_storage',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
