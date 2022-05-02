@@ -153,6 +153,7 @@
                         {% if request.user.is_authenticated %}
                             <a href="{% url 'product add' %}" class="">Add Product</a>
                             <a href="" class="">Welcome {{ request.user }}</a>
+                            <a href="{% url 'logout' %}" class="">Logout</a>
 
                         {% else %}
                             <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>

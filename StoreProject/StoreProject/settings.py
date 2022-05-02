@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'StoreProject.main',
     'StoreProject.accounts',
     'StoreProject.products',
+    'cloudinary',
+    # 'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -138,12 +140,16 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
-# cloudinary.config(
-#     cloud_name="dcjusaq1k",
-#     api_key="356371223124896",
-#     api_secret="tgaOZBfyLHt236EcNe_2n0rLHv8",
-# )
+cloudinary.config(
+    cloud_name="dcjusaq1k",
+    api_key="356371223124896",
+    api_secret="tgaOZBfyLHt236EcNe_2n0rLHv8",
+)
 #
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 #
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_REDIRECT_URL = '/'

@@ -26,7 +26,9 @@ class Product(models.Model):
         validators=(
             MinLengthValidator(NAME_MIN_LEN),
             validate_only_letters_and_numbers,
-        )
+        ),
+        null=False,
+        blank=False,
     )
 
     description = models.TextField()
@@ -40,7 +42,7 @@ class Product(models.Model):
     type = models.CharField(
         max_length=max(len(x) for x, _ in TYPES),
         choices=TYPES,
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         default=SHIRT,
     )
