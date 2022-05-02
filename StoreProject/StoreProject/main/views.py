@@ -3,9 +3,14 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import generic as views
 
+from StoreProject.products.models import Product
 
-class HomeView(views.TemplateView):
+
+class HomeView(views.ListView):
     template_name = 'index.html'
+    model = Product
+    context_object_name = 'products'
+
 
 class ItemDetailsView(views.TemplateView):
     template_name = 'detail.html'

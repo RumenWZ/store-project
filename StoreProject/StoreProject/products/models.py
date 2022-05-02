@@ -9,6 +9,8 @@ class Product(models.Model):
     NAME_MIN_LEN = 5
     NAME_MAX_LEN = 60
 
+    PRODUCT_PRICE_MAX_DIGITS = 5
+
     SHIRT = 'Shirt'
     PANTS = 'Pants'
     SWEATER = 'Sweater'
@@ -39,6 +41,11 @@ class Product(models.Model):
         default=True,
     )
 
+    price = models.DecimalField(
+        max_digits=PRODUCT_PRICE_MAX_DIGITS,
+        decimal_places=2,
+    )
+
     type = models.CharField(
         max_length=max(len(x) for x, _ in TYPES),
         choices=TYPES,
@@ -46,3 +53,11 @@ class Product(models.Model):
         blank=True,
         default=SHIRT,
     )
+
+    discount = models.IntegerField(
+        default=0,
+    )
+
+    @property
+    def get_price(self):
+        return self.price * (100 - self.discount) / 100

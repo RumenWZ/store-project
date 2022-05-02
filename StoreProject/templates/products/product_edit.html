@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <div class="container-fluid my-5 col-md-4 mb-5">
+        <h5 class="font-weight-bold text-dark mb-4">Edit this product</h5>
+        <form action="{% url 'product edit' product.pk %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Edit Product</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
