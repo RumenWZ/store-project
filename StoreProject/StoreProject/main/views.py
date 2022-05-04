@@ -20,3 +20,6 @@ class CartView(views.TemplateView):
 
 class CheckoutView(views.TemplateView):
     template_name = 'checkout.html'
+
+class ShopView(views.TemplateView):
+    template_name = 'shop.html'

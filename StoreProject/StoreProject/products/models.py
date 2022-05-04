@@ -61,3 +61,13 @@ class Product(models.Model):
     @property
     def get_price(self):
         return self.price * (100 - self.discount) / 100
+
+
+class ExtraPictures(models.Model):
+    product_id = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+    )
+
+    picture = cloudinary_models.CloudinaryField('image')
+

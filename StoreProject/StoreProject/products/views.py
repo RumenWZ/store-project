@@ -29,3 +29,9 @@ class EditProductView(UserPassesTestMixin, views.UpdateView):
     def test_func(self):
         result = self.request.user.is_superuser or self.request.user.is_staff
         return result
+
+
+class ProductDetailsView(views.DetailView):
+    template_name = 'products/product_detail.html'
+    model = Product
+    context_object_name = 'product'
