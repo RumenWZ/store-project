@@ -1,6 +1,6 @@
 from django.urls import path
 
-from StoreProject.main.views import HomeView, ItemDetailsView, CartView, CheckoutView, ShopView
+from StoreProject.main.views import HomeView, ItemDetailsView, CartView, CheckoutView, ShopView, ContactView
 
 urlpatterns = (
     path('', HomeView.as_view(), name='index'),
@@ -8,4 +8,5 @@ urlpatterns = (
     path('cart/', CartView.as_view(), name='cart'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('shop/', ShopView.as_view(), name='shop'),
+    path('contact/', ContactView.as_view(), name='contact'),
 )

@@ -23,3 +23,7 @@ class CheckoutView(views.TemplateView):
 
 class ShopView(views.TemplateView):
     template_name = 'shop.html'
+
+
+class ContactView(views.TemplateView):
+    template_name = 'contact.html'
