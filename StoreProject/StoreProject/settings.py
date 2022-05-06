@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'StoreProject.products',
     'cloudinary',
     'cloudinary_storage',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
