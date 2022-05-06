@@ -7,7 +7,9 @@
             {{ form }}
             <div>
                 <button class="btn btn-primary btn-block border-0 py-3" type="submit">Edit Product</button>
+                <a href="{% url 'product delete' product.pk %}" class="btn btn-primary btn-block border-0 py-3">Delete Product</a>
             </div>
+
         </form>
     </div>
 

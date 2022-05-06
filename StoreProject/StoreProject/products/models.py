@@ -58,16 +58,18 @@ class Product(models.Model):
         default=0,
     )
 
+    actual_price = models.FloatField()
+
     @property
     def get_price(self):
         return self.price * (100 - self.discount) / 100
 
 
-class ExtraPictures(models.Model):
-    product_id = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-    )
-
-    picture = cloudinary_models.CloudinaryField('image')
+# class ExtraPictures(models.Model):
+#     product_id = models.ForeignKey(
+#         Product,
+#         on_delete=models.CASCADE,
+#     )
+#
+#     picture = cloudinary_models.CloudinaryField('image')
 

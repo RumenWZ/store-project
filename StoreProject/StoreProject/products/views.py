@@ -34,3 +34,12 @@ class ProductDetailsView(views.DetailView):
     template_name = 'products/product_detail.html'
     model = Product
     context_object_name = 'product'
+
+class ProductDeleteView(views.DeleteView):
+    model = Product
+    template_name = 'products/product_delete.html'
+    success_url = reverse_lazy('shop')
+
+    def test_func(self):
+        result = self.request.user.is_superuser or self.request.user.is_staff
+        return result
