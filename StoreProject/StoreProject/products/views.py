@@ -7,7 +7,6 @@ from django.views import generic as views
 
 from StoreProject.main.forms import EditProductForm
 from StoreProject.products.models import Product
-from .filters import ProductFilter
 
 class AddProductView(views.CreateView):
     template_name = 'products/product_add.html'

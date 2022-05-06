@@ -3,7 +3,6 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import generic as views
 
-from StoreProject.products.filters import ProductFilter
 from StoreProject.products.models import Product
 
 
@@ -44,14 +43,16 @@ class CheckoutView(views.TemplateView):
 def shop_view(request):
     products = Product.objects.all()
 
-    myFilter = ProductFilter(request.GET, queryset=products)
-    products = myFilter.qs
+    product_contains = request.GET.get('product_contains')
+
+    if product_contains != '' and product_contains is not None:
+        products = products.filter(name__icontains=product_contains)
 
     context = {
         'products': products,
-        'myFilter': myFilter,
     }
 
+    print(product_contains)
     return render(request, 'shop.html', context)
 
 
