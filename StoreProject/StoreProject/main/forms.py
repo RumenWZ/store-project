@@ -9,6 +9,7 @@ class EditProductForm(BootstrapFormMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self._init_bootstrap_form_controls()
 
+
     class Meta:
         model = Product
         fields = ('name', 'picture', 'description', 'price', 'discount', 'in_stock')

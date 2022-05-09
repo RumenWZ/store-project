@@ -2,7 +2,7 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from cloudinary import models as cloudinary_models
 # Create your models here.
-from StoreProject.common.validators import validate_only_letters_and_numbers
+from StoreProject.common.validators import validate_only_letters_and_numbers, validate_image_resolution
 
 
 class Product(models.Model):
@@ -35,7 +35,14 @@ class Product(models.Model):
 
     description = models.TextField()
 
-    picture = cloudinary_models.CloudinaryField('image')
+    picture = cloudinary_models.CloudinaryField(
+        'image',
+        blank=False,
+        null=False,
+        validators=(
+            validate_image_resolution,
+        ),
+    )
 
     in_stock = models.BooleanField(
         default=True,
