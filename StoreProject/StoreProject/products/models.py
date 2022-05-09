@@ -65,7 +65,10 @@ class Product(models.Model):
         default=0,
     )
 
-    actual_price = models.FloatField()
+    actual_price = models.FloatField(
+        null=True,
+        blank=True,
+    )
 
     @property
     def get_price(self):

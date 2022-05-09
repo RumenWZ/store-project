@@ -16,7 +16,7 @@
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
             <form method="POST" action="{% url 'product delete' object.pk %}"><h2 class="section-title px-5"><span
-                    class="px-2">Are you sure you want to delete {{ object.name }}</span></h2>
+                    class="px-2">Are you sure you want to delete {{ object.name }}?</span></h2>
                 {% csrf_token %}
                 <button type="submit">Yes</button>
             </form>
