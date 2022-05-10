@@ -239,7 +239,7 @@
                                     {% if products_page.has_next %}
                                         <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
                                     {% endif %}
-                                    {% if next_page_twice <= max_page_num %}
+                                    {% if next_page_twice < max_page_num %}
                                         <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
                                     {% endif %}
                                 {% elif products_page.number == max_page_num %}

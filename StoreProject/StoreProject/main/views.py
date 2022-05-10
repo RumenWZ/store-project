@@ -10,23 +10,23 @@ from StoreProject.products.models import Product
 
 
 class HomeView(views.ListView):
-    template_name = 'index.html'
+    template_name = 'main/index.html'
     model = Product
     context_object_name = 'products'
 
 
 class ItemDetailsView(views.TemplateView):
-    template_name = 'detail.html'
+    template_name = 'main/detail.html'
 
 class CartView(views.TemplateView):
-    template_name = 'cart.html'
+    template_name = 'main/cart.html'
 
 class CheckoutView(views.TemplateView):
-    template_name = 'checkout.html'
+    template_name = 'main/checkout.html'
 
 
 def shop_view(request):
-    ITEMS_PER_PAGE = 6
+    ITEMS_PER_PAGE = 3
 
     # Filters
     price_range_100 = request.GET.get('price-100')
@@ -34,18 +34,18 @@ def shop_view(request):
     price_range_300 = request.GET.get('price-300')
     product_contains = request.GET.get('product_contains')
 
-    products = Product.objects.all()
-    p = Paginator(Product.objects.all(), ITEMS_PER_PAGE)
+    products = Product.objects.all().order_by('id')
+    p = Paginator(Product.objects.all().order_by('id'), ITEMS_PER_PAGE)
 
     if price_range_100:
-        p = Paginator(Product.objects.all().filter(actual_price__gt=0, actual_price__lt=101), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(actual_price__gt=0, actual_price__lt=101).order_by('id'), ITEMS_PER_PAGE)
     elif price_range_200:
-        p = Paginator(Product.objects.all().filter(actual_price__gt=100, actual_price__lt=201), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(actual_price__gt=100, actual_price__lt=201).order_by('id'), ITEMS_PER_PAGE)
     elif price_range_300:
-        p = Paginator(Product.objects.all().filter(actual_price__gt=200, actual_price__lt=301), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(actual_price__gt=200, actual_price__lt=301).order_by('id'), ITEMS_PER_PAGE)
 
     if product_contains != '' and product_contains is not None:
-        p = Paginator(Product.objects.all().filter(name__icontains=product_contains), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(name__icontains=product_contains).order_by('id'), ITEMS_PER_PAGE)
 
     page = request.GET.get('page')
     products_page = p.get_page(page)
@@ -76,8 +76,17 @@ def shop_view(request):
         'previous_page_twice': previous_page_twice,
     }
 
-    return render(request, 'shop.html', context)
+    return render(request, 'main/shop.html', context)
 
+
+def review_view(request):
+
+
+    context = {
+
+    }
+
+    return render(request, 'main/review.html', context)
 
 class ContactView(views.TemplateView):
-    template_name = 'contact.html'
+    template_name = 'main/contact.html'
