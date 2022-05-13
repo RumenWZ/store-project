@@ -1,17 +1,36 @@
 {% extends 'base.html' %}
 {% block page_content %}
-    <div class="container-fluid my-5 col-md-4 mb-5">
-        <h5 class="font-weight-bold text-dark mb-4">Login</h5>
-        <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            {{ form }}
-            <div>
-                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Login</button>
-            </div>
-            <p>Don't have an account? Click <a href="{% url 'register' %}">here</a> to register.</p>
+    <div class="container-fluid my-5 col-md-3 mb-5">
 
-            <p>Forgot password? Click <a href="#">here</a>.</p>
-        </form>
+
+        <div class="d-lg-flex half">
+
+            <div class="contents order-2 order-md-1">
+
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7">
+                            <h3>Login to <strong>EShopper</strong></h3>
+                            <p class="mb-4"></p>
+                            <form action="{% url 'login' %}" method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <p>&nbsp;</p>
+                                <input type="submit" value="Log In" class="btn btn-block btn-primary">
+                                <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a>.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    {#        <p>Don't have an account? Click <a href="{% url 'register' %}">here</a> to register.</p>#}
+    {##}
+    {#        <p>Forgot password? Click <a href="#">here</a>.</p>#}
+    {#        </form>#}
+
 
 {% endblock %}
