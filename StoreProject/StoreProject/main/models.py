@@ -10,7 +10,7 @@ from StoreProject.products.models import Product
 
 
 class Review(models.Model):
-    RATINGS = [(x, x) for x in range(1, 6)]
+    RATINGS = [(str(x), x) for x in range(1, 6)]
 
     product_id = models.ForeignKey(
         Product,

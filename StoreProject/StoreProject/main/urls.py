@@ -1,7 +1,7 @@
 from django.urls import path
 
 from StoreProject.main.views import HomeView, ItemDetailsView, CartView, CheckoutView, ContactView, shop_view, \
-    review_view
+    review_view, ReviewView
 
 urlpatterns = (
     path('', HomeView.as_view(), name='index'),
@@ -12,4 +12,5 @@ urlpatterns = (
     path('shop/', shop_view, name='shop'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('review/', review_view, name='review'),
+    path('review1/', ReviewView.as_view(), name='review1'),
 )

@@ -74,6 +74,8 @@ class Product(models.Model):
     def get_price(self):
         return self.price * (100 - self.discount) / 100
 
+    def __str__(self):
+        return f"{self.name} - {self.type}"
 
 # class ExtraPictures(models.Model):
 #     product_id = models.ForeignKey(

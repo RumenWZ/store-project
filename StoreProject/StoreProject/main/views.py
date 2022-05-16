@@ -4,8 +4,11 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 
 # Create your views here.
+from django.urls import reverse_lazy
 from django.views import generic as views
 
+from StoreProject.main.forms import ReviewProductForm
+from StoreProject.main.models import Review
 from StoreProject.products.models import Product
 
 
@@ -18,8 +21,10 @@ class HomeView(views.ListView):
 class ItemDetailsView(views.TemplateView):
     template_name = 'main/detail.html'
 
+
 class CartView(views.TemplateView):
     template_name = 'main/cart.html'
+
 
 class CheckoutView(views.TemplateView):
     template_name = 'main/checkout.html'
@@ -38,11 +43,14 @@ def shop_view(request):
     p = Paginator(Product.objects.all().order_by('id'), ITEMS_PER_PAGE)
 
     if price_range_100:
-        p = Paginator(Product.objects.all().filter(actual_price__gt=0, actual_price__lt=101).order_by('id'), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(actual_price__gt=0, actual_price__lt=101).order_by('id'),
+                      ITEMS_PER_PAGE)
     elif price_range_200:
-        p = Paginator(Product.objects.all().filter(actual_price__gt=100, actual_price__lt=201).order_by('id'), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(actual_price__gt=100, actual_price__lt=201).order_by('id'),
+                      ITEMS_PER_PAGE)
     elif price_range_300:
-        p = Paginator(Product.objects.all().filter(actual_price__gt=200, actual_price__lt=301).order_by('id'), ITEMS_PER_PAGE)
+        p = Paginator(Product.objects.all().filter(actual_price__gt=200, actual_price__lt=301).order_by('id'),
+                      ITEMS_PER_PAGE)
 
     if product_contains != '' and product_contains is not None:
         p = Paginator(Product.objects.all().filter(name__icontains=product_contains).order_by('id'), ITEMS_PER_PAGE)
@@ -69,7 +77,7 @@ def shop_view(request):
         'products_all_count': products_all_count,
         'products_0_100': products_in_range_0_100,
         'products_100_200': products_in_range_100_200,
-        'products_200_300':products_in_range_200_300,
+        'products_200_300': products_in_range_200_300,
         'products_page': products_page,
         'max_page_num': max_page_num,
         'next_page_twice': next_page_twice,
@@ -80,13 +88,29 @@ def shop_view(request):
 
 
 def review_view(request):
-
+    if request.method == 'POST':
+        form = ReviewProductForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = ReviewProductForm(request)
 
     context = {
-
+        'form': form,
     }
 
     return render(request, 'main/review.html', context)
+
+
+class ReviewView(views.CreateView):
+    model = Review
+    template_name = 'main/review1.html'
+    success_url = reverse_lazy('index')
+    fields = '__all__'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ContactView(views.TemplateView):
     template_name = 'main/contact.html'
