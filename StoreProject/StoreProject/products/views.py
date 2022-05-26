@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from StoreProject.main.forms import EditProductForm
+from StoreProject.main.models import Review
 from StoreProject.products.models import Product
 
 class AddProductView(views.CreateView):
@@ -30,10 +31,31 @@ class EditProductView(UserPassesTestMixin, views.UpdateView):
         return result
 
 
-class ProductDetailsView(views.DetailView):
-    template_name = 'products/product_detail.html'
-    model = Product
-    context_object_name = 'product'
+# class ProductDetailsView(views.DetailView):
+#     template_name = 'products/product_detail.html'
+#     model = Product
+#     context_object_name = 'product'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#
+#
+#         return
+
+
+def product_details(request, pk):
+    product = Product.objects.get(pk=pk)
+    reviews_for_product = Review.objects.all().filter(product_id=pk)
+    reviews_count = len(reviews_for_product)
+
+    context = {
+        'product': product,
+        'reviews': reviews_for_product,
+        'reviews_count': reviews_count,
+    }
+
+    return render(request, 'products/product_detail.html', context)
+
 
 class ProductDeleteView(views.DeleteView):
     model = Product

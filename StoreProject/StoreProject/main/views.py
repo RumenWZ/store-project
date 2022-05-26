@@ -103,6 +103,7 @@ def review_view(request, pk):
                 description=description,
                 rating=rating,
                 reviewer=user,
+                reviewer_name=user.username
             )
 
             review.save()

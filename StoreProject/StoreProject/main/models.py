@@ -12,7 +12,7 @@ from StoreProject.products.models import Product
 class Review(models.Model):
     RATINGS = [(str(x), x) for x in range(1, 6)]
 
-    product_id = models.ForeignKey(
+    product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
     )
@@ -36,6 +36,9 @@ class Review(models.Model):
         auto_now_add=True,
     )
 
+    reviewer_name = models.CharField(
+        max_length=40,
+    )
 
 class Cart(models.Model):
     product_id = models.ForeignKey(
