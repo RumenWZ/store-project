@@ -47,11 +47,16 @@ def product_details(request, pk):
     product = Product.objects.get(pk=pk)
     reviews_for_product = Review.objects.all().filter(product_id=pk)
     reviews_count = len(reviews_for_product)
+    if reviews_for_product:
+        avg_reviews = sum([int(review.rating) for review in reviews_for_product]) / reviews_count
+    else:
+        avg_reviews = 0
 
     context = {
         'product': product,
         'reviews': reviews_for_product,
         'reviews_count': reviews_count,
+        'average_reviews': avg_reviews,
     }
 
     return render(request, 'products/product_detail.html', context)

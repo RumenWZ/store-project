@@ -99,7 +99,7 @@ def review_view(request, pk):
 
         if form.is_valid():
             review = Review(
-                product_id=product,
+                product_id=product.id,
                 description=description,
                 rating=rating,
                 reviewer=user,
@@ -112,7 +112,6 @@ def review_view(request, pk):
     else:
         form = ReviewProductForm()
 
-    print(product)
     context = {
         'form': form,
         'pk': pk,

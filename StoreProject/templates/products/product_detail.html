@@ -57,7 +57,7 @@
                         <small class="fas fa-star-half-alt"></small>
                         <small class="far fa-star"></small>
                     </div>
-                    <small class="pt-1">(50 Reviews)</small>
+                    <small class="pt-1">({{ reviews_count }} Reviews) ({{ average_reviews }})</small>
                 </div>
                 {% if product.discount > 0 %}
                     <h3 class="text-muted ml-2">
@@ -118,6 +118,8 @@
                         </div>
                     </form>
                 </div>
+                <a href="{% url 'review' product.id %}"><button  class="btn btn-primary px-3" >Review
+                                    </button></a>
                 {% if product.in_stock %}
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
@@ -236,16 +238,51 @@
                                     {% endif %}
                                     <div class="media mb-4">
                                     {% for review in reviews %}
-                                        <img src="{% static 'images/user.jpg' %}" alt="Image" class="img-fluid mr-3 mt-1"
+                                        <img src="{% static 'images/user.jpg' %}" alt="Image"
+                                             class="img-fluid mr-3 mt-1"
                                              style="width: 45px;">
                                         <div class="media-body">
-                                            <h6>{{ review.reviewer_name }}<small> - <i>{{ review.review_date }}</i></small></h6>
+                                            <h6>{{ review.reviewer_name }}<small> -
+                                                <i>{{ review.review_date }}</i></small></h6>
                                             <div class="text-primary mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <i class="far fa-star"></i>
+                                                {% if review.get_review_int == 1 %}
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+
+                                                {% elif review.get_review_int == 2 %}
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+
+                                                {% elif review.get_review_int == 3 %}
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+
+                                                {% elif review.get_review_int == 4 %}
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+
+                                                {% elif review.get_review_int == 5 %}
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                {% endif %}
+                                                {##}
+                                                {#                                                <i class="fas fa-star-half-alt"></i>#}
+                                                {#                                                <i class="far fa-star"></i>#}
                                             </div>
                                             <p>{{ review.description }}</p>
                                         </div>
@@ -286,7 +323,9 @@
                                         <div class="form-group mb-0">
                                             <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                         </div>
+
                                     </form>
+
                                 </div>
                             </div>
                         </div>

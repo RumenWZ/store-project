@@ -40,6 +40,11 @@ class Review(models.Model):
         max_length=40,
     )
 
+    @property
+    def get_review_int(self):
+        return int(self.rating)
+
+
 class Cart(models.Model):
     product_id = models.ForeignKey(
         Product,
