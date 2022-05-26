@@ -87,16 +87,32 @@ def shop_view(request):
     return render(request, 'main/shop.html', context)
 
 
-def review_view(request):
+def review_view(request, pk):
+    user = request.user
+    product = Product.objects.get(pk=pk)
+
     if request.method == 'POST':
         form = ReviewProductForm(request.POST)
-        if form.is_valid():
-            pass
-    else:
-        form = ReviewProductForm(request)
+        rating = form['rating'].value()
+        description = form['description'].value()
 
+        if form.is_valid():
+            review = Review(
+                product_id=product,
+                description=description,
+                rating=rating,
+                reviewer=user,
+            )
+
+            review.save()
+    else:
+        form = ReviewProductForm()
+
+    print(product)
     context = {
         'form': form,
+        'pk': pk,
+        'product': product,
     }
 
     return render(request, 'main/review.html', context)

@@ -22,9 +22,11 @@
             <div class="col-lg-7 mb-5">
                 <div class="contact-form">
                     <div id="success"></div>
-                    <form action="{% url 'review' %}" method="POST">
+                    <form action="{% url 'review' pk%}" method="POST">
                         {% csrf_token %}
-                        {{ form }}
+                        <p>Rating: {{ form.rating }}</p>
+                        <p>Describe the product:</p>
+                        {{ form.description }}
                         <p></p>
                         <input type="submit" value="Submit Review" class="btn btn-block btn-primary">
                     </form>
@@ -34,11 +36,10 @@
                 <h5 class="font-weight-semi-bold mb-3">Leave a review for:</h5>
                 <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{% static 'images/cat-2.jpg' %}" alt="">
+                        <img class="img-fluid" src="{{ product.picture.url }}" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">{{ product.name }}</h5>
                 </div>
             </div>
 
