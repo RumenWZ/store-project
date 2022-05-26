@@ -32,6 +32,10 @@ class Review(models.Model):
         on_delete=models.CASCADE,
     )
 
+    review_date = models.DateTimeField(
+        auto_now_add=True,
+    )
+
 
 class Cart(models.Model):
     product_id = models.ForeignKey(
