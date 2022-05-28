@@ -49,14 +49,18 @@ def product_details(request, pk):
     reviews_count = len(reviews_for_product)
     if reviews_for_product:
         avg_reviews = sum([int(review.rating) for review in reviews_for_product]) / reviews_count
+        avg_reviews_decimal = int(str(avg_reviews)[2])
+        print(avg_reviews_decimal)
     else:
-        avg_reviews = 0
+        avg_reviews = None
+        avg_reviews_decimal = None
 
     context = {
         'product': product,
         'reviews': reviews_for_product,
         'reviews_count': reviews_count,
         'average_reviews': avg_reviews,
+        'average_reviews_decimal': avg_reviews_decimal,
     }
 
     return render(request, 'products/product_detail.html', context)

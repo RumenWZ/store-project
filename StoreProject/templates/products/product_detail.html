@@ -51,11 +51,59 @@
                 <h3 class="font-weight-semi-bold">{{ product.name }}</h3>
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
+                        {% if average_reviews > 4.6 %}
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                        {% elif average_reviews >= 4 %}
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            {% if average_reviews_decimal >= 5 %}
+                                <small class="fas fa-star-half-alt"></small>
+                            {% else %}
+                                <small class="far fa-star"></small>
+                            {% endif %}
+                        {% elif average_reviews >= 3 %}
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            {% if average_reviews_decimal >= 5 %}
+                                <small class="fas fa-star-half-alt"></small>
+                            {% else %}
+                                <small class="far fa-star"></small>
+                            {% endif %}
+                            <small class="far fa-star"></small>
+                        {% elif average_reviews >= 2 %}
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            {% if average_reviews_decimal >= 5 %}
+                                <small class="fas fa-star-half-alt"></small>
+                            {% else %}
+                                <small class="far fa-star"></small>
+                            {% endif %}
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        {% elif average_reviews >= 1 %}
+                            <small class="fas fa-star"></small>
+                            {% if average_reviews_decimal >= 5 %}
+                                <small class="fas fa-star-half-alt"></small>
+                            {% else %}
+                                <small class="far fa-star"></small>
+                            {% endif %}
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        {% else %}
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        {% endif %}
                     </div>
                     <small class="pt-1">({{ reviews_count }} Reviews) ({{ average_reviews }})</small>
                 </div>
@@ -118,8 +166,10 @@
                         </div>
                     </form>
                 </div>
-                <a href="{% url 'review' product.id %}"><button  class="btn btn-primary px-3" >Review
-                                    </button></a>
+                <a href="{% url 'review' product.id %}">
+                    <button class="btn btn-primary px-3">Review
+                    </button>
+                </a>
                 {% if product.in_stock %}
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
