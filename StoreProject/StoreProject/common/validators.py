@@ -1,3 +1,5 @@
+import cloudinary
+import django
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
 
@@ -15,6 +17,7 @@ def validate_only_letters_and_numbers(value):
 
 
 def validate_image_resolution(value):
-    w, h = get_image_dimensions(value)
-    if w != h:
-        raise ValidationError('The image height must be the same as the width.')
+    if type(value) != cloudinary.CloudinaryResource:
+        w, h = get_image_dimensions(value)
+        if w != h:
+            raise ValidationError('The image height must be the same as the width.')

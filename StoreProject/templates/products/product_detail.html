@@ -104,8 +104,11 @@
                             <small class="far fa-star"></small>
                             <small class="far fa-star"></small>
                         {% endif %}
+                        {% if average_reviews %}
+                            ({{ average_reviews|floatformat:1 }})
+                        {% endif %}
                     </div>
-                    <small class="pt-1">({{ reviews_count }} Reviews) ({{ average_reviews }})</small>
+                    <small class="pt-1">({{ reviews_count }} Reviews)</small>
                 </div>
                 {% if product.discount > 0 %}
                     <h3 class="text-muted ml-2">
