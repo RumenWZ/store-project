@@ -46,7 +46,10 @@ class Review(models.Model):
 
 
 class Cart(models.Model):
-    product_id = models.ForeignKey(
+    CART_COLOR_MAX_LENGTH = 12
+    CART_SIZE_MAX_LENGTH = 2
+
+    product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
     )
@@ -54,6 +57,10 @@ class Cart(models.Model):
     customer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+    )
+
+    size = models.CharField(
+        max_length=CART_SIZE_MAX_LENGTH
     )
 
 

@@ -44,6 +44,28 @@ class EditProductView(UserPassesTestMixin, views.UpdateView):
 
 
 def product_details(request, pk):
+    sizes = {
+        'XS': request.GET.get('size-XS'),
+        'S': request.GET.get('size-S'),
+        'M': request.GET.get('size-M'),
+        'L': request.GET.get('size-L'),
+        'XL': request.GET.get('size-XL'),
+    }
+
+    for size, value in sizes.items():
+        if value is not None:
+            size = size
+            break
+        else:
+            size = None
+
+    if size:
+        print('y')
+        print(size)
+    else:
+        print('no')
+
+
     product = Product.objects.get(pk=pk)
     reviews_for_product = Review.objects.all().filter(product_id=pk)
     reviews_count = len(reviews_for_product)
