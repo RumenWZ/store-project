@@ -49,6 +49,8 @@ class Cart(models.Model):
     CART_COLOR_MAX_LENGTH = 12
     CART_SIZE_MAX_LENGTH = 2
 
+    PRODUCT_PRICE_MAX_DIGITS = 5
+
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
@@ -61,6 +63,11 @@ class Cart(models.Model):
 
     size = models.CharField(
         max_length=CART_SIZE_MAX_LENGTH
+    )
+
+    price = models.DecimalField(
+        max_digits=PRODUCT_PRICE_MAX_DIGITS,
+        decimal_places=2,
     )
 
 

@@ -23,8 +23,15 @@ class ItemDetailsView(views.TemplateView):
     template_name = 'main/detail.html'
 
 
-class CartView(views.TemplateView):
-    template_name = 'main/cart.html'
+def cart_view(request):
+    user = request.user
+
+
+    context = {
+
+    }
+
+    return render(request, 'main/cart.html', context)
 
 
 class CheckoutView(views.TemplateView):

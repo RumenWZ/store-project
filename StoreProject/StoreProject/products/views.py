@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from StoreProject.main.forms import EditProductForm
-from StoreProject.main.models import Review
+from StoreProject.main.models import Review, Cart
 from StoreProject.products.models import Product
 
 class AddProductView(views.CreateView):
@@ -60,10 +60,17 @@ def product_details(request, pk):
             size = None
 
     if size:
-        print('y')
-        print(size)
-    else:
-        print('no')
+        user = request.user
+        product = Product.objects.get(pk=pk)
+
+        cart = Cart(
+            customer=user,
+            product=product,
+            size=size,
+            price=product.price,
+        )
+        cart.save()
+
 
 
     product = Product.objects.get(pk=pk)
