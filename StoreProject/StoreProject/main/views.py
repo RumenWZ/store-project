@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from StoreProject.main.forms import ReviewProductForm
-from StoreProject.main.models import Review
+from StoreProject.main.models import Review, Cart
 from StoreProject.products.models import Product
 
 
@@ -26,9 +26,10 @@ class ItemDetailsView(views.TemplateView):
 def cart_view(request):
     user = request.user
 
+    cart_products = Cart.objects.filter(customer_id=user.pk)
 
     context = {
-
+        'cart_products': cart_products,
     }
 
     return render(request, 'main/cart.html', context)
@@ -140,3 +141,9 @@ class ReviewView(views.CreateView):
 
 class ContactView(views.TemplateView):
     template_name = 'main/contact.html'
+
+
+class CartDeleteView(views.DeleteView):
+    model = Cart
+    template_name = 'main/cart.html'
+    success_url = reverse_lazy('cart')

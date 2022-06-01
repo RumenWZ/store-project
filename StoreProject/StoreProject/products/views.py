@@ -4,6 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views import generic as views
+from django.contrib import messages
 
 from StoreProject.main.forms import EditProductForm
 from StoreProject.main.models import Review, Cart
@@ -68,8 +69,11 @@ def product_details(request, pk):
             product=product,
             size=size,
             price=product.price,
+            picture=product.picture,
+
         )
         cart.save()
+        messages.success(request, 'Item successfully added to cart.')
 
 
 

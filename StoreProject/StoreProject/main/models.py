@@ -70,6 +70,11 @@ class Cart(models.Model):
         decimal_places=2,
     )
 
+    picture = cloudinary_models.CloudinaryField(
+        'image',
+        blank=False,
+        null=False,
+    )
 
 class Sales(models.Model):
     pass
