@@ -1,7 +1,7 @@
 import math
 
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -25,6 +25,8 @@ class ItemDetailsView(views.TemplateView):
 
 def cart_view(request):
     user = request.user
+    # product_id = request.data['productId']
+    # print(f"View: {product_id}")
 
     cart_products = Cart.objects.filter(customer_id=user.pk)
 
@@ -33,6 +35,13 @@ def cart_view(request):
     }
 
     return render(request, 'main/cart.html', context)
+
+
+def updateCart(request):
+    product_id = request.data['productId']
+    print(f"View: {product_id}")
+
+    return JsonResponse('Item was removed', safe=False)
 
 
 class CheckoutView(views.TemplateView):
@@ -138,6 +147,7 @@ class ReviewView(views.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
 
 class ContactView(views.TemplateView):
     template_name = 'main/contact.html'

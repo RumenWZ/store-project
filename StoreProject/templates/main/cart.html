@@ -57,8 +57,8 @@
 {#                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>#}
 {#                            </td>#}
                             <td class="align-middle">
-{#                                <input type="button" class="btn btn-sm btn-primary" value="X" >#}
-                                <a href="{% url 'cart delete' item.pk%}"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></a>
+                                <input data-product={{ item.pk }} type="button" class="btn btn-sm btn-primary delete-cart-product" value="X" name="delete">
+{#                                <a href="{% url 'cart delete' item.pk%}"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></a>#}
                             </td>
                         </tr>
 
@@ -100,5 +100,5 @@
             </div>
         </div>
     </div>
-    <!-- Cart End -->
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 {% endblock %}
