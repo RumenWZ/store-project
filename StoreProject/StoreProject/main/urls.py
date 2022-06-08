@@ -1,10 +1,10 @@
 from django.urls import path
 
-from StoreProject.main.views import HomeView, ItemDetailsView, CheckoutView, ContactView, shop_view, \
-    review_view, ReviewView, cart_view, CartDeleteView, updateCart
+from StoreProject.main.views import ItemDetailsView, CheckoutView, ContactView, shop_view, \
+    review_view, ReviewView, cart_view, CartDeleteView, updateCart, home_view
 
 urlpatterns = (
-    path('', HomeView.as_view(), name='index'),
+    path('', home_view, name='index'),
     path('details/', ItemDetailsView.as_view(), name='details'),
     path('cart/', cart_view, name='cart'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),

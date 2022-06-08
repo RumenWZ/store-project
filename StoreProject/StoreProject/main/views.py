@@ -18,6 +18,14 @@ class HomeView(views.ListView):
     model = Product
     context_object_name = 'products'
 
+def home_view(request):
+    trandy_products = Product.objects.all()[:4]
+
+    context = {
+        'trandy_products': trandy_products
+    }
+
+    return render(request, 'main/index.html', context)
 
 class ItemDetailsView(views.TemplateView):
     template_name = 'main/detail.html'
