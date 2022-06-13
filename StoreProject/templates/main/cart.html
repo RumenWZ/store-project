@@ -33,7 +33,7 @@
                     {% for item in cart_products %}
                         <tr>
                             <td class="align-middle"><img src="{{ item.picture.url }}" alt=""
-                                                          style="width: 50px;"> Colorful Stylish Shirt
+                                                          style="width: 50px;"> {{ item.product_name }}
                             </td>
                             <td class="align-middle">${{ item.price }}</td>
                             <td class="align-middle">
@@ -57,13 +57,12 @@
                                 </div>
                             </td>
                             <td class="align-middle">{{ item.size }}</td>
-                            {#                            <td class="align-middle">#}
-                            {#                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>#}
-                            {#                            </td>#}
                             <td class="align-middle">
-                                <input data-product={{ item.pk }} type="button"
-                                       class="btn btn-sm btn-primary delete-cart-product" value="X" name="delete">
-                                {#                                <a href="{% url 'cart delete' item.pk%}"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></a>#}
+                                <a href="{% url 'cart remove item' item.pk %}">
+                                    <input type="button"
+                                           class="btn btn-sm btn-primary delete-cart-product" value="X"
+                                           name="delete"></a>
+
                             </td>
                         </tr>
 

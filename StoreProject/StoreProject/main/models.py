@@ -56,6 +56,10 @@ class Cart(models.Model):
         on_delete=models.CASCADE,
     )
 
+    product_name = models.CharField(
+        max_length=Product.NAME_MAX_LEN,
+    )
+
     customer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -79,6 +83,7 @@ class Cart(models.Model):
         blank=False,
         null=False,
     )
+
 
 class Sales(models.Model):
     pass

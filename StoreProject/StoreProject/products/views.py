@@ -68,8 +68,9 @@ def product_details(request, pk):
             customer=user,
             product=product,
             size=size,
-            price=product.price,
+            price=product.get_price,
             picture=product.picture,
+            product_name=product.name,
 
         )
         cart.save()

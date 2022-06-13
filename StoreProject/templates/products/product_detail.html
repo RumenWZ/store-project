@@ -114,7 +114,7 @@
                     <h3 class="text-muted ml-2">
                         <del>${{ product.price }}</del>
                     </h3>
-                    <h3 class="font-weight-semi-bold mb-4">${{ product.get_price }}</h3>
+                    <h3 class="font-weight-semi-bold mb-4">${{ product.get_price|floatformat:2 }}</h3>
                 {% else %}
                     <h3 class="font-weight-semi-bold mb-4">${{ product.price }}</h3>
                 {% endif %}
