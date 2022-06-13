@@ -13,11 +13,6 @@ from StoreProject.main.models import Review, Cart
 from StoreProject.products.models import Product
 
 
-class HomeView(views.ListView):
-    template_name = 'main/index.html'
-    model = Product
-    context_object_name = 'products'
-
 def home_view(request):
     trandy_products = Product.objects.all()[:4]
 
@@ -38,8 +33,13 @@ def cart_view(request):
 
     cart_products = Cart.objects.filter(customer_id=user.pk)
 
+    cart_summary = sum([x.price for x in cart_products])
+    cart_summary_after_shipping = cart_summary - 10
+
     context = {
         'cart_products': cart_products,
+        'cart_summary': cart_summary,
+        'cart_summary_after_shipping': cart_summary_after_shipping,
     }
 
     return render(request, 'main/cart.html', context)

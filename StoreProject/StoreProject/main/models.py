@@ -70,6 +70,10 @@ class Cart(models.Model):
         decimal_places=2,
     )
 
+    quantity = models.IntegerField(
+        default=1,
+    )
+
     picture = cloudinary_models.CloudinaryField(
         'image',
         blank=False,
