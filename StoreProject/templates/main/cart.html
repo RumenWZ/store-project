@@ -39,26 +39,31 @@
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
+                                        <a href="{% url 'cart remove quantity' item.pk %}">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </a>
                                     </div>
                                     <input type="text" class="form-control form-control-sm bg-secondary text-center"
-                                           value="1">
+                                           value={{ item.quantity }} name="quant-button">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
+                                        <a href="{% url 'cart add quantity' item.pk %}">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
                             <td class="align-middle">{{ item.size }}</td>
-{#                            <td class="align-middle">#}
-{#                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>#}
-{#                            </td>#}
+                            {#                            <td class="align-middle">#}
+                            {#                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>#}
+                            {#                            </td>#}
                             <td class="align-middle">
-                                <input data-product={{ item.pk }} type="button" class="btn btn-sm btn-primary delete-cart-product" value="X" name="delete">
-{#                                <a href="{% url 'cart delete' item.pk%}"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></a>#}
+                                <input data-product={{ item.pk }} type="button"
+                                       class="btn btn-sm btn-primary delete-cart-product" value="X" name="delete">
+                                {#                                <a href="{% url 'cart delete' item.pk%}"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></a>#}
                             </td>
                         </tr>
 
@@ -100,5 +105,5 @@
             </div>
         </div>
     </div>
-  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

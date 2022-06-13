@@ -22,6 +22,7 @@ def home_view(request):
 
     return render(request, 'main/index.html', context)
 
+
 class ItemDetailsView(views.TemplateView):
     template_name = 'main/detail.html'
 
@@ -30,10 +31,12 @@ def cart_view(request):
     user = request.user
     # product_id = request.data['productId']
     # print(f"View: {product_id}")
+    btn = request.GET.get('quant-button')
+    print(btn)
 
     cart_products = Cart.objects.filter(customer_id=user.pk)
 
-    cart_summary = sum([x.price for x in cart_products])
+    cart_summary = sum([x.price * x.quantity for x in cart_products])
     cart_summary_after_shipping = cart_summary - 10
 
     context = {
@@ -43,6 +46,23 @@ def cart_view(request):
     }
 
     return render(request, 'main/cart.html', context)
+
+
+def cart_remove_quantity(request, pk):
+    cart_item = Cart.objects.get(pk=pk)
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+
+    return redirect('cart')
+
+
+def cart_add_quantity(request, pk):
+    cart_item = Cart.objects.get(pk=pk)
+    cart_item.quantity += 1
+    cart_item.save()
+
+    return redirect('cart')
 
 
 def updateCart(request):
