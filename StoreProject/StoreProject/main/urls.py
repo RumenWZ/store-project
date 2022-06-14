@@ -1,13 +1,13 @@
 from django.urls import path
 
-from StoreProject.main.views import ItemDetailsView, CheckoutView, ContactView, shop_view, \
+from StoreProject.main.views import ItemDetailsView, ContactView, shop_view, \
     review_view, ReviewView, cart_view, CartDeleteView, updateCart, home_view, cart_add_quantity, cart_remove_quantity, \
-    cart_remove_item
+    cart_remove_item, checkout_view
 
 urlpatterns = (
     path('', home_view, name='index'),
     path('details/', ItemDetailsView.as_view(), name='details'),
-    path('checkout/', CheckoutView.as_view(), name='checkout'),
+    path('checkout/', checkout_view, name='checkout'),
     path('shop/', shop_view, name='shop'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('review/<int:pk>/', review_view, name='review'),

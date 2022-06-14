@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from StoreProject.main.forms import ReviewProductForm
+from StoreProject.main.forms import ReviewProductForm, CheckoutForm
 from StoreProject.main.models import Review, Cart
 from StoreProject.products.models import Product
 
@@ -29,14 +29,12 @@ class ItemDetailsView(views.TemplateView):
 
 def cart_view(request):
     user = request.user
-    btn = request.GET.get('quant-button')
-    print(btn)
 
     cart_products = Cart.objects.filter(customer_id=user.pk).order_by('product_name')
 
     cart_summary = sum([x.price * x.quantity for x in cart_products])
     if cart_summary > 0:
-        cart_summary_after_shipping = cart_summary - 10
+        cart_summary_after_shipping = cart_summary + 10
     else:
         cart_summary_after_shipping = 0
 
@@ -79,8 +77,28 @@ def updateCart(request):
     return JsonResponse('Item was removed', safe=False)
 
 
-class CheckoutView(views.TemplateView):
-    template_name = 'main/checkout.html'
+def checkout_view(request):
+    user = request.user
+
+    form = CheckoutForm()
+
+    cart_products = Cart.objects.filter(customer_id=user.pk).order_by('product_name')
+
+    cart_summary = sum([x.price * x.quantity for x in cart_products])
+    if cart_summary > 0:
+        cart_summary_after_shipping = cart_summary + 10
+    else:
+        cart_summary_after_shipping = 0
+
+
+    context = {
+        'cart_products': cart_products,
+        'cart_summary': cart_summary,
+        'cart_summary_after_shipping': cart_summary_after_shipping,
+        'form': form,
+    }
+
+    return render(request, 'main/checkout.html', context)
 
 
 def shop_view(request):
