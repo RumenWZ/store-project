@@ -118,4 +118,7 @@ class SoldItems(models.Model):
         on_delete=models.CASCADE,
     )
 
+    size = models.CharField(
+        max_length=2,
+    )
 

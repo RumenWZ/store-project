@@ -96,6 +96,7 @@ def checkout_view(request):
             for product in cart_products:
                 item = Product.objects.get(pk=product.product_id)
                 products.append(item)
+                product.delete()
 
             for product in products:
                 product_sale = SoldItems(
