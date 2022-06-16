@@ -97,14 +97,25 @@ class Sales(models.Model):
         on_delete=models.CASCADE,
     )
 
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-    )
-
     payment_method = models.CharField(
         max_length=max(len(x) for x in PAYMENT_METHODS),
     )
 
+
+class SoldItems(models.Model):
+    sale = models.ForeignKey(
+        Sales,
+        on_delete=models.CASCADE,
+    )
+
+    customer = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+    )
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+    )
 
 

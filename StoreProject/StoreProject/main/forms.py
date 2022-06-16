@@ -17,6 +17,10 @@ class EditProductForm(BootstrapFormMixin, forms.ModelForm):
 
 
 class ReviewProductForm(BootstrapFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
     class Meta:
         model = Review
         fields = ('rating', 'description',)
@@ -26,7 +30,9 @@ class ReviewProductForm(BootstrapFormMixin, forms.ModelForm):
 
 
 class CheckoutForm(BootstrapFormMixin, forms.ModelForm):
+
     payment_methods = [(x, x) for x in Sales.PAYMENT_METHODS]
+
     payment_method = forms.ChoiceField(
         choices=payment_methods,
         widget=forms.RadioSelect,
@@ -35,4 +41,3 @@ class CheckoutForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Sales
         fields = ('payment_method',)
-

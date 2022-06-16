@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from StoreProject.main.forms import ReviewProductForm, CheckoutForm
-from StoreProject.main.models import Review, Cart
+from StoreProject.main.models import Review, Cart, Sales, SoldItems
 from StoreProject.products.models import Product
 
 
@@ -79,10 +79,35 @@ def updateCart(request):
 
 def checkout_view(request):
     user = request.user
-
-    form = CheckoutForm()
-
     cart_products = Cart.objects.filter(customer_id=user.pk).order_by('product_name')
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        payment_method = form['payment_method'].value()
+        if form.is_valid():
+            products = []
+
+            sale = Sales(
+                customer=user,
+                payment_method=payment_method,
+            )
+            sale.save()
+
+            for product in cart_products:
+                item = Product.objects.get(pk=product.product_id)
+                products.append(item)
+
+            for product in products:
+                product_sale = SoldItems(
+                    sale=sale,
+                    customer=user,
+                    product=product,
+                )
+                product_sale.save()
+
+    else:
+        form = CheckoutForm()
+
 
     cart_summary = sum([x.price * x.quantity for x in cart_products])
     if cart_summary > 0:
