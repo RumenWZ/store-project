@@ -80,6 +80,7 @@ def updateCart(request):
 def checkout_view(request):
     user = request.user
     cart_products = Cart.objects.filter(customer_id=user.pk).order_by('product_name')
+    cart_summary = sum([x.price * x.quantity for x in cart_products])
 
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
@@ -90,6 +91,7 @@ def checkout_view(request):
             sale = Sales(
                 customer=user,
                 payment_method=payment_method,
+                sale_price=cart_summary + 10
             )
             sale.save()
 
@@ -112,8 +114,6 @@ def checkout_view(request):
     else:
         form = CheckoutForm()
 
-
-    cart_summary = sum([x.price * x.quantity for x in cart_products])
     if cart_summary > 0:
         cart_summary_after_shipping = cart_summary + 10
     else:

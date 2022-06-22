@@ -101,6 +101,11 @@ class Sales(models.Model):
         max_length=max(len(x) for x in PAYMENT_METHODS),
     )
 
+    sale_price = models.DecimalField(
+        max_digits=Product.PRODUCT_PRICE_MAX_DIGITS,
+        decimal_places=2,
+    )
+
 
 class SoldItems(models.Model):
     sale = models.ForeignKey(
