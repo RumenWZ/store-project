@@ -95,16 +95,19 @@ def checkout_view(request):
 
             for product in cart_products:
                 item = Product.objects.get(pk=product.product_id)
-                products.append(item)
+                products.append([item, product.size])
                 product.delete()
 
             for product in products:
                 product_sale = SoldItems(
                     sale=sale,
                     customer=user,
-                    product=product,
+                    product=product[0],
+                    size=product[1],
                 )
                 product_sale.save()
+
+            return redirect('thank you for shopping')
 
     else:
         form = CheckoutForm()
@@ -236,3 +239,11 @@ class CartDeleteView(views.DeleteView):
     model = Cart
     template_name = 'main/cart.html'
     success_url = reverse_lazy('cart')
+
+
+def thank_you_for_shopping_view(request):
+    context = {
+
+    }
+
+    return render(request, 'main/thank_you_shopping.html', context)
