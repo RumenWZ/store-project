@@ -48,7 +48,10 @@ class Product(models.Model):
         default=True,
     )
 
-
+    price = models.DecimalField(
+        max_digits=PRODUCT_PRICE_MAX_DIGITS,
+        decimal_places=2,
+    )
 
     type = models.CharField(
         max_length=max(len(x) for x, _ in TYPES),
