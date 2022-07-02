@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-# import dj_database_url
+import dj_database_url
 import cloudinary
 import cloudinary_storage
 from dotenv import load_dotenv
@@ -23,48 +23,47 @@ environment = os.getenv('ENVIRONMENT')
 # if environment == 'Development':
 #     DEBUG = True
 #
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'store_db',
-#             'USER': 'postgres',
-#             'PASSWORD': '12345zxc',
-#             'HOST': '127.0.0.1',
-#             'PORT': '5432',
-#         }
-#     }
-#
-# else:
-DEBUG = False
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd63gierhc9bt6g',
-        'USER': 'gmukijyywuzitx',
-        'PASSWORD': '513826fa91d6acb998c913c7175f24d41e8ca79421aeeb16825873527d20db11',
-        'HOST': 'ec2-52-30-75-37.eu-west-1.compute.amazonaws.com',
+        'NAME': 'store_db',
+        'USER': 'postgres',
+        'PASSWORD': '12345zxc',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
+#
+# else:
+DEBUG = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd63gierhc9bt6g',
+#         'USER': 'gmukijyywuzitx',
+#         'PASSWORD': '513826fa91d6acb998c913c7175f24d41e8ca79421aeeb16825873527d20db11',
+#         'HOST': 'ec2-52-30-75-37.eu-west-1.compute.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+#         },
+#     },
+# }
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,6 +89,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'StoreProject.middleware.handle_exception',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -97,7 +97,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'StoreProject.urls'
@@ -123,9 +123,6 @@ WSGI_APPLICATION = 'StoreProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-
-
 
 
 # Password validation
@@ -184,6 +181,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGOUT_REDIRECT_URL = '/'
 
 LOGIN_REDIRECT_URL = '/'
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)

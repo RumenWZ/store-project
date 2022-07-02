@@ -22,3 +22,7 @@ urlpatterns = [
     path('accounts/', include('StoreProject.accounts.urls')),
     path('products/', include('StoreProject.products.urls')),
 ]
+
+handler400 = 'StoreProject.main.views.error_400'
+handler403 = 'StoreProject.main.views.error_403'
+

@@ -11,6 +11,7 @@ from django.views import generic as views
 from StoreProject.main.forms import ReviewProductForm, CheckoutForm
 from StoreProject.main.models import Review, Cart, Sales, SoldItems
 from StoreProject.products.models import Product
+from django.template import RequestContext
 
 
 def home_view(request):
@@ -70,6 +71,7 @@ def cart_remove_item(request, pk):
 
     return redirect('cart')
 
+
 def updateCart(request):
     product_id = request.data['productId']
     print(f"View: {product_id}")
@@ -118,7 +120,6 @@ def checkout_view(request):
         cart_summary_after_shipping = cart_summary + 10
     else:
         cart_summary_after_shipping = 0
-
 
     context = {
         'cart_products': cart_products,
@@ -247,3 +248,19 @@ def thank_you_for_shopping_view(request):
     }
 
     return render(request, 'main/thank_you_shopping.html', context)
+
+
+def error_400(request, exception):
+    return render(request, 'errors/400.html', status=403)
+
+
+def error_403(request, exception):
+    return render(request, 'errors/403.html', status=403)
+
+
+def error_404(request):
+    return render(request, 'errors/404.html')
+
+
+def error_500(request):
+    return render(request, 'errors/500.html', status=500)

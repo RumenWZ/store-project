@@ -21,4 +21,6 @@ urlpatterns = (
     path('cart/quantity/remove/<int:pk>/', cart_remove_quantity, name='cart remove quantity'),
     path('cart/remove/<int:pk>/', cart_remove_item, name='cart remove item'),
 
+    # path('error_403', )
+
 )

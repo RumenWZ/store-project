@@ -9,9 +9,8 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7">
                             <h3>Create an account for <strong>EShopper</strong></h3>
-                            <p class="mb-4">This message is only here so my css doesn't break because I don't know how
-                                to fix it.</p>
-                            <form action="{% url 'login' %}" method="post">
+                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                            <form action="{% url 'register' %}" method="post">
                                 {% csrf_token %}
                                 {{ form.username.label }}
                                 {{ form.username }}

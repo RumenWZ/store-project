@@ -1,5 +1,5 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import render
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
@@ -10,11 +10,17 @@ from StoreProject.main.forms import EditProductForm
 from StoreProject.main.models import Review, Cart
 from StoreProject.products.models import Product
 
-class AddProductView(views.CreateView):
+
+class AddProductView(UserPassesTestMixin, LoginRequiredMixin, views.CreateView):
+    print('test')
     template_name = 'products/product_add.html'
+    login_url = '/accounts/login/'
     model = Product
     fields = ('name', 'description', 'picture', 'type', 'price',)
     success_url = reverse_lazy('index')
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -62,6 +68,8 @@ def product_details(request, pk):
 
     if size:
         user = request.user
+        if user.is_anonymous:
+            return redirect('login')
         product = Product.objects.get(pk=pk)
 
         cart = Cart(
@@ -75,8 +83,6 @@ def product_details(request, pk):
         )
         cart.save()
         messages.success(request, 'Item successfully added to cart.')
-
-
 
     product = Product.objects.get(pk=pk)
     reviews_for_product = Review.objects.all().filter(product_id=pk)
