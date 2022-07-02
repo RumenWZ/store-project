@@ -12,24 +12,66 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 import cloudinary
 import cloudinary_storage
+from dotenv import load_dotenv
+
+load_dotenv()
+
+environment = os.getenv('ENVIRONMENT')
+
+if environment == 'Development':
+    DEBUG = True
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'store_db',
+            'USER': 'postgres',
+            'PASSWORD': '12345zxc',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+
+elif environment == 'Production':
+    DEBUG = False
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd63gierhc9bt6g',
+            'USER': 'gmukijyywuzitx',
+            'PASSWORD': '513826fa91d6acb998c913c7175f24d41e8ca79421aeeb16825873527d20db11',
+            'HOST': 'ec2-52-30-75-37.eu-west-1.compute.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            },
+        },
+    }
+
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-1*dbi*p7tnvm=*@13oti@aun%+$mu29%u6#-_t+zqp+c%h3den'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,7 +97,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'StoreProject.urls'
@@ -82,27 +124,9 @@ WSGI_APPLICATION = 'StoreProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'store_db',
-        'USER': 'postgres',
-        'PASSWORD': '12345zxc',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': '<database_name>',
-#         'USER': '<user_name>',
-#         'PASSWORD': '<password>',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
