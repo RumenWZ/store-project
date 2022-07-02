@@ -34,7 +34,7 @@ if environment == 'Development':
         }
     }
 
-elif environment == 'Production':
+else:
     DEBUG = False
 
     DATABASES = {
