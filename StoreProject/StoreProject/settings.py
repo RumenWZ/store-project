@@ -20,49 +20,49 @@ load_dotenv()
 
 environment = os.getenv('ENVIRONMENT')
 
-if environment == 'Development':
-    DEBUG = True
+# if environment == 'Development':
+#     DEBUG = True
+#
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'store_db',
+#             'USER': 'postgres',
+#             'PASSWORD': '12345zxc',
+#             'HOST': '127.0.0.1',
+#             'PORT': '5432',
+#         }
+#     }
+#
+# else:
+DEBUG = False
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'store_db',
-            'USER': 'postgres',
-            'PASSWORD': '12345zxc',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd63gierhc9bt6g',
+        'USER': 'gmukijyywuzitx',
+        'PASSWORD': '513826fa91d6acb998c913c7175f24d41e8ca79421aeeb16825873527d20db11',
+        'HOST': 'ec2-52-30-75-37.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
+}
 
-else:
-    DEBUG = False
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd63gierhc9bt6g',
-            'USER': 'gmukijyywuzitx',
-            'PASSWORD': '513826fa91d6acb998c913c7175f24d41e8ca79421aeeb16825873527d20db11',
-            'HOST': 'ec2-52-30-75-37.eu-west-1.compute.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
-
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-            },
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
         },
-        'loggers': {
-            'django': {
-                'handlers': ['console'],
-                'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-            },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
         },
-    }
+    },
+}
 
 
 
