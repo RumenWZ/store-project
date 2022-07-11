@@ -127,3 +127,25 @@ class SoldItems(models.Model):
         max_length=2,
     )
 
+    picture = cloudinary_models.CloudinaryField(
+        'image',
+        blank=False,
+        null=False,
+    )
+
+    price = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+    )
+
+    date_sold = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    name = models.CharField(
+        max_length=Product.NAME_MAX_LEN,
+    )
+
+    quantity = models.IntegerField(
+
+    )

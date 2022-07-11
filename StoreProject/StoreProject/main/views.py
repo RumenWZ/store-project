@@ -99,7 +99,7 @@ def checkout_view(request):
 
             for product in cart_products:
                 item = Product.objects.get(pk=product.product_id)
-                products.append([item, product.size])
+                products.append([item, product.size, product.picture, product.price, product.product_name, product.quantity])
                 product.delete()
 
             for product in products:
@@ -108,6 +108,10 @@ def checkout_view(request):
                     customer=user,
                     product=product[0],
                     size=product[1],
+                    picture=product[2],
+                    price=product[3],
+                    name=product[4],
+                    quantity=product[5],
                 )
                 product_sale.save()
 
@@ -219,6 +223,22 @@ def review_view(request, pk):
     }
 
     return render(request, 'main/review.html', context)
+
+
+def my_purchases_view(request):
+    sales = Sales.objects.all().filter(customer_id=request.user)
+    purchased_products = []
+
+    for sale in sales:
+        products = SoldItems.objects.all().filter(sale_id=sale.pk)
+        for product in products:
+            purchased_products.append(product)
+
+    context = {
+        'purchased_products': purchased_products,
+    }
+
+    return render(request, 'main/purchases.html', context)
 
 
 class ReviewView(views.CreateView):

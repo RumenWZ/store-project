@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Purchase History</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Purchase History</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Cart Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Products</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Size</th>
+                        <th>Purchase Date</th>
+                        <th>Review</th>
+                    </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                    {% for item in purchased_products %}
+                        <tr>
+                            <td class="align-middle"><img src="{{ item.picture.url }}" alt=""
+                                                          style="width: 50px;"> {{ item.product_name }}
+                            </td>
+                            <td class="align-middle">${{ item.price }}</td>
+                            <td class="align-middle">{{ item.quantity }}</td>
+                            <td class="align-middle">{{ item.size }}</td>
+                            <td class="align-middle">{{ item.date_sold }}</td>
+                            <td>Placeholder</td>
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

@@ -37,18 +37,6 @@ class EditProductView(UserPassesTestMixin, views.UpdateView):
         return result
 
 
-# class ProductDetailsView(views.DetailView):
-#     template_name = 'products/product_detail.html'
-#     model = Product
-#     context_object_name = 'product'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#
-#
-#         return
-
-
 def product_details(request, pk):
     sizes = {
         'XS': request.GET.get('size-XS'),
