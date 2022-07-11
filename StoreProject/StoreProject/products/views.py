@@ -12,7 +12,6 @@ from StoreProject.products.models import Product
 
 
 class AddProductView(UserPassesTestMixin, LoginRequiredMixin, views.CreateView):
-    print('test')
     template_name = 'products/product_add.html'
     login_url = '/accounts/login/'
     model = Product
@@ -84,13 +83,14 @@ def product_details(request, pk):
         cart.save()
         messages.success(request, 'Item successfully added to cart.')
 
+    may_also_like = Product.objects.all()
     product = Product.objects.get(pk=pk)
+    # may_also_like.pop(product)
     reviews_for_product = Review.objects.all().filter(product_id=pk)
     reviews_count = len(reviews_for_product)
     if reviews_for_product:
         avg_reviews = sum([int(review.rating) for review in reviews_for_product]) / reviews_count
         avg_reviews_decimal = int(str(avg_reviews)[2])
-        print(avg_reviews_decimal)
     else:
         avg_reviews = None
         avg_reviews_decimal = None
@@ -101,6 +101,7 @@ def product_details(request, pk):
         'reviews_count': reviews_count,
         'average_reviews': avg_reviews,
         'average_reviews_decimal': avg_reviews_decimal,
+        'may_also_like': may_also_like,
     }
 
     return render(request, 'products/product_detail.html', context)

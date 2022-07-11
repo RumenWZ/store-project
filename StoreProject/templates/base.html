@@ -180,7 +180,7 @@
         </div>
     </div>
 </div>
-
+{% include 'main/messages.html' %}
 {% block page_content %}
 {% endblock %}
 <!-- Navbar End -->
@@ -195,5 +195,5 @@
 
 <!-- Template Javascript -->
 <script src="{% static 'js/main.js' %}"></script>
-{#<script src="{% static 'js/csrf.js' %}"></script>#}
+<script src="{% static 'js/messages.js' %}"></script>
 </body>
