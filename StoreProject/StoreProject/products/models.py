@@ -77,6 +77,7 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} - {self.type}"
 
+
 # class ExtraPictures(models.Model):
 #     product_id = models.ForeignKey(
 #         Product,

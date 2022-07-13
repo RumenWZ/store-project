@@ -11,7 +11,7 @@ from django.views import generic as views
 from StoreProject.main.forms import ReviewProductForm, CheckoutForm
 from StoreProject.main.models import Review, Cart, Sales, SoldItems
 from StoreProject.products.models import Product
-from django.template import RequestContext
+from django.contrib import messages
 
 
 def home_view(request):
@@ -196,6 +196,20 @@ def review_view(request, pk):
     user = request.user
     product = Product.objects.get(pk=pk)
 
+    sales = Sales.objects.all().filter(customer_id=request.user)
+    purchased_products = []
+
+    for sale in sales:
+        products = SoldItems.objects.all().filter(sale_id=sale.pk)
+        for x in products:
+            purchased_products.append(x)
+
+    have_purchased = product.pk in [x.product_id for x in purchased_products]
+    if not have_purchased:
+        messages.warning(request, 'You do not own this product.')
+        # return redirect('index')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
     if request.method == 'POST':
         form = ReviewProductForm(request.POST)
         rating = form['rating'].value()
@@ -240,16 +254,6 @@ def my_purchases_view(request):
 
     return render(request, 'main/purchases.html', context)
 
-
-class ReviewView(views.CreateView):
-    model = Review
-    template_name = 'main/review1.html'
-    success_url = reverse_lazy('index')
-    fields = '__all__'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
 
 
 class ContactView(views.TemplateView):

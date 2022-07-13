@@ -1,7 +1,7 @@
 from django.urls import path
 
 from StoreProject.main.views import ItemDetailsView, ContactView, shop_view, \
-    review_view, ReviewView, cart_view, CartDeleteView, updateCart, home_view, cart_add_quantity, cart_remove_quantity, \
+    review_view, cart_view, CartDeleteView, updateCart, home_view, cart_add_quantity, cart_remove_quantity, \
     cart_remove_item, checkout_view, thank_you_for_shopping_view, my_purchases_view
 
 urlpatterns = (
@@ -11,7 +11,6 @@ urlpatterns = (
     path('shop/', shop_view, name='shop'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('review/<int:pk>/', review_view, name='review'),
-    path('review1/', ReviewView.as_view(), name='review1'),
     path('delete/<int:pk>', CartDeleteView.as_view(), name='cart delete'),
     path('delete_cart/', updateCart, name='delete cart item'),
     path('purchases/', my_purchases_view, name='my purchases'),
